@@ -93,7 +93,7 @@ export default {
         this.selectedOutput && this.rates[this.selectedInput]
       ) {
         return (
-          this.amount * this.rates[this.selectedInput][this.selectedOutput]
+          parseFloat(this.amount).toFixed(2) * this.rates[this.selectedInput][this.selectedOutput]
         );
       }
       return "-";
@@ -101,8 +101,10 @@ export default {
   },
   watch: {
     amount(newVal, old) {
-      this.amount = parseFloat(newVal).toFixed(2);
-      this.$refs.input.$el.value = parseFloat(newVal).toFixed(2);
+      this.$nextTick(()=>{
+        this.amount = parseFloat(newVal).toFixed(2);
+        this.$refs.input.$el.value = parseFloat(newVal).toFixed(2);
+      })
     },
   },
 };
