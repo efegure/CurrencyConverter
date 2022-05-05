@@ -36,7 +36,9 @@ export default {
       default: 60000000,
     },
   },
-
+  onUnmounted() {
+    clearInterval(this.interval);
+  }
 };
 </script>
 
