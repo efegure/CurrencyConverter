@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
-import rateService from "@/services/openExchange.js"
+import rateService from "@/services/exchangeRates.js"
+import openExhangeService from "@/services/openExchange.js"
 
 export const useStore = defineStore({
   id: 'counter',
@@ -10,9 +11,6 @@ export const useStore = defineStore({
     getRate: (currency) => (state) =>{
       return state.rates
     },
-    getRate: (currency) => (state) =>{
-      return state.rates
-    } 
   },
   actions: {
     async fetchAllRates(array) {
@@ -24,13 +22,23 @@ export const useStore = defineStore({
         console.warn("ERROR while fetching rates!")
       }
     },
-    async fetchRate(rate) {
+    async fetchRate(rate, altAPI=false) {
       try{
-        const rates = await rateService.getCurrencyRate(rate);
-        debugger
+        const rates = {}
+        if(!altAPI){
+          rates = await rateService.getCurrencyRate(rate);
+        } else {
+          rates = await openExhangeService.getCurrencyRate(rate);
+        }
         this.rates[rate] = rates.rates;
+
       } catch(err) {
-        console.warn("ERROR while fetching rates!")
+        if(!altAPI) {
+          console.warn("Trying alternative API...")
+          this.fetchRate(rate, true);
+        } else{
+          console.warn("ERROR while fetching rates!")
+        }
       }
     }
   }

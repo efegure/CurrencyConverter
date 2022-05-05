@@ -1,5 +1,6 @@
 <template>
   <div class="row">
+    <span class="converter__header"> Currency converter </span>
     <b-card no-body class="col-sm-5 p-0">
       <b-card-body>
         <b-form-input
@@ -12,7 +13,7 @@
       </b-card-body>
       <b-card-footer class="p-0">
         <b-form-select
-        class="converter__select"
+          class="converter__select border-0"
           v-model="selectedInput"
           :options="inputArray"
         ></b-form-select>
@@ -32,7 +33,7 @@
       </b-card-body>
       <b-card-footer class="p-0">
         <b-form-select
-        class="converter__select"
+          class="converter__select border-0"
           v-model="selectedOutput"
           :options="outputArray"
         ></b-form-select>
@@ -49,10 +50,11 @@ export default {
     const { inputCurrecies, pollTime } = props;
     const store = useStore();
     store.fetchAllRates(inputCurrecies);
-    let interval = setInterval(() => {
-      console.warn("haloooo imma poll ");
-      store.fetchAllRates(inputCurrecies);
-    }, pollTime);
+    // let interval = setInterval(() => {
+    //   console.warn("Fetching Requests from the API...");
+    //   store.fetchAllRates(inputCurrecies);
+    // }, pollTime);
+    // will be accessible from data()
     return {
       store,
     };
@@ -75,7 +77,7 @@ export default {
     },
     pollTime: {
       type: Number,
-      default: 60000,
+      default: 60000000,
     },
   },
   computed: {
@@ -119,29 +121,10 @@ export default {
       return "-";
     },
   },
-  methods: {
-    // formatInput(value){
-    //   let temp = parseFloat(value).toFixed(2)
-    //   console.warn(temp);
-    //   this.amount = temp;
-    //   this.$refs.input.$el.value = temp
-    //   debugger;
-    //   console.log(this.$refs.input.$el.value)
-    //   // setTimeout(()=>{
-    //   //   this.amount = temp
-    //   // },500)
-    //   // return temp;
-    // },
-    // change(value){
-    //   console.log("value")
-    // }
-  },
   watch: {
     amount(newVal, old) {
-      console.warn("TO FIXED", parseFloat(newVal).toFixed(2));
       this.amount = parseFloat(newVal).toFixed(2);
       this.$refs.input.$el.value = parseFloat(newVal).toFixed(2);
-      console.warn("WATCHER", newVal, old);
     },
   },
 };
@@ -149,6 +132,10 @@ export default {
 
 <style lang="scss">
 .converter {
+  &__header {
+    font-size: 1.25rem;
+    padding: 0.75rem;
+  }
   &__input {
     padding: 0.75rem;
     :deep(.form-control:focus) {
@@ -166,8 +153,8 @@ export default {
   &__icon {
     margin: auto;
   }
-  &__select{
-    padding:1rem!important;
+  &__select {
+    padding: 1rem !important;
   }
 }
 </style>
