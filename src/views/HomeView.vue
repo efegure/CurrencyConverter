@@ -1,9 +1,9 @@
 <script setup>
-import Converter from '@/components/Converter.vue'
+import CurrencyConverter from '@/components/CurrencyConverter.vue'
 </script>
 
 <template>
   <main>
-    <Converter />
+    <CurrencyConverter />
   </main>
 </template>

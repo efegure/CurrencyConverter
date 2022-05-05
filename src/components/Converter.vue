@@ -42,23 +42,8 @@
   </div>
 </template>
 <script>
-import { useStore } from "@/stores/converter";
-
 export default {
   name: "Converter",
-  setup(props) {
-    const { inputCurrecies, pollTime } = props;
-    const store = useStore();
-    store.fetchAllRates(inputCurrecies);
-    // let interval = setInterval(() => {
-    //   console.warn("Fetching Requests from the API...");
-    //   store.fetchAllRates(inputCurrecies);
-    // }, pollTime);
-    // will be accessible from data()
-    return {
-      store,
-    };
-  },
   data() {
     return {
       selectedInput: "USD",
@@ -75,14 +60,14 @@ export default {
       type: Array,
       default: () => [],
     },
-    pollTime: {
-      type: Number,
-      default: 60000000,
+    rates: {
+      type: Object,
+      default: () => {},
     },
   },
   computed: {
     temp() {
-      return this.store.rates;
+      return this.rates;
     },
     inputArray() {
       const temp = this.inputCurrecies.map((curr) => {
@@ -91,16 +76,10 @@ export default {
       return temp;
     },
     outputArray() {
-      if (
-        this.selectedInput &&
-        this.store.rates &&
-        this.store.rates[this.selectedInput]
-      ) {
-        let temp = Object.keys(this.store.rates[this.selectedInput]).map(
-          (key) => {
-            return { value: key, text: key };
-          }
-        );
+      if (this.selectedInput && this.rates && this.rates[this.selectedInput]) {
+        let temp = Object.keys(this.rates[this.selectedInput]).map((key) => {
+          return { value: key, text: key };
+        });
         temp.push({ value: false, text: "Please select a currency" });
         return temp;
       }
@@ -111,11 +90,10 @@ export default {
         this.amount &&
         this.amount !== "NaN" &&
         this.selectedInput &&
-        this.selectedOutput
+        this.selectedOutput && this.rates[this.selectedInput]
       ) {
         return (
-          this.amount *
-          this.store.rates[this.selectedInput][this.selectedOutput]
+          this.amount * this.rates[this.selectedInput][this.selectedOutput]
         );
       }
       return "-";

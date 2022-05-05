@@ -24,7 +24,7 @@ export const useStore = defineStore({
     },
     async fetchRate(rate, altAPI=false) {
       try{
-        const rates = {}
+        let rates = {}
         if(!altAPI){
           rates = await rateService.getCurrencyRate(rate);
         } else {
