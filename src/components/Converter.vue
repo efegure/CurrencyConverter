@@ -60,6 +60,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    filterOutputCurrencies : {
+       type: Boolean,
+      default: false,
+    },
     rates: {
       type: Object,
       default: () => {},
@@ -81,6 +85,11 @@ export default {
           return { value: key, text: key };
         });
         temp.push({ value: false, text: "Please select a currency" });
+        if(this.filterOutputCurrencies) {
+          temp = temp.filter(()=>{
+            return this.outputCurrencies.includes(temp.name)
+          })
+        }
         return temp;
       }
       return [{ value: false, text: "Please select a currency" }];
