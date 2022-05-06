@@ -9,7 +9,6 @@ import Converter from '@/components/Converter.vue'
 export default {
   name: "CurrencyConverter",
   setup(props) {
-      debugger
     const { inputCurrecies, pollTime } = props;
     const store = useStore();
     store.fetchAllRates(inputCurrecies);
@@ -33,7 +32,7 @@ export default {
     },
     pollTime: {
       type: Number,
-      default: 60000000,
+      default: 60000,
     },
   },
   onUnmounted() {
