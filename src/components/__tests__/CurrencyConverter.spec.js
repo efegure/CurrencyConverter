@@ -1,9 +1,9 @@
 import { describe, it, expect } from "vitest";
 
 import { mount } from "@vue/test-utils";
-import Converter from "../Converter.vue";
+import CurrencyConverter from "../CurrencyConverter.vue";
 
-describe("Converter.vue", () => {
+describe("CurrencyConverter.vue", () => {
   const rates = {
     USD: {
       AED: 3.673025,
@@ -180,8 +180,8 @@ describe("Converter.vue", () => {
   const inputCurrecies = ["USD", "GBP", "EUR", "EUR2"];
   const outputCurrencies = ["USD", "GBP"];
 
-  const wrapper = mount(Converter, {
-    name: "Converter",
+  const wrapper = mount(CurrencyConverter, {
+    name: "CurrencyConverter",
     props: {
       rates: rates,
       inputCurrecies: inputCurrecies,
