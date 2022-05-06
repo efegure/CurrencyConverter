@@ -3,27 +3,25 @@
 </template>
 <script>
 import { useStore } from "@/stores/converter";
-import Converter from '@/components/Converter.vue'
-
+import Converter from "@/components/Converter.vue";
 
 export default {
   name: "CurrencyConverter",
   setup(props) {
-    const { inputCurrecies, pollTime } = props;
     const store = useStore();
-    store.fetchAllRates(inputCurrecies);
+    store.fetchAllRates(props.inputCurrecies);
     let interval = setInterval(() => {
       console.warn("Fetching Requests from the API...");
-      store.fetchAllRates(inputCurrecies);
-    }, pollTime);
+      store.fetchAllRates(props.inputCurrecies);
+    }, props.pollTime);
     // will be accessible from data()
     return {
       store,
-      interval
+      interval,
     };
   },
-  components:{
-      Converter
+  components: {
+    Converter,
   },
   props: {
     inputCurrecies: {
@@ -37,9 +35,8 @@ export default {
   },
   onUnmounted() {
     clearInterval(this.interval);
-  }
+  },
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

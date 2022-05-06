@@ -1,13 +1,13 @@
 <template>
-<RouterView />
+  <RouterView />
 </template>
 
 <script setup>
-  import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from "vue-router";
 </script>
 
 <style>
-@import '@/assets/base.css';
+@import "@/assets/base.css";
 
 #app {
   max-width: 1280px;
@@ -24,9 +24,8 @@
 
   #app {
     display: grid;
-    grid-template-columns: 1fr ;
+    grid-template-columns: 1fr;
     padding: 0 2rem;
   }
-
 }
 </style>

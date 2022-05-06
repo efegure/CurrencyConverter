@@ -58,10 +58,10 @@ export default {
     },
     outputCurrencies: {
       type: Array,
-      default: () => [],
+      default: () => ["USD", "GBP", "EUR"],
     },
-    filterOutputCurrencies : {
-       type: Boolean,
+    filterOutputCurrencies: {
+      type: Boolean,
       default: false,
     },
     rates: {
@@ -84,12 +84,12 @@ export default {
         let temp = Object.keys(this.rates[this.selectedInput]).map((key) => {
           return { value: key, text: key };
         });
-        temp.push({ value: false, text: "Please select a currency" });
-        if(this.filterOutputCurrencies) {
-          temp = temp.filter(()=>{
-            return this.outputCurrencies.includes(temp.name)
-          })
+        if (this.filterOutputCurrencies) {
+          temp = temp.filter((el) => {
+            return this.outputCurrencies.includes(el.value);
+          });
         }
+        console.log("OUTPUT", temp);
         return temp;
       }
       return [{ value: false, text: "Please select a currency" }];
@@ -99,21 +99,23 @@ export default {
         this.amount &&
         this.amount !== "NaN" &&
         this.selectedInput &&
-        this.selectedOutput && this.rates[this.selectedInput]
+        this.selectedOutput &&
+        this.rates[this.selectedInput]
       ) {
         return (
-          parseFloat(this.amount).toFixed(2) * this.rates[this.selectedInput][this.selectedOutput]
+          parseFloat(this.amount).toFixed(2) *
+          this.rates[this.selectedInput][this.selectedOutput]
         );
       }
       return "-";
     },
   },
   watch: {
-    amount(newVal, old) {
-      this.$nextTick(()=>{
+    amount(newVal) {
+      this.$nextTick(() => {
         this.amount = parseFloat(newVal).toFixed(2);
         this.$refs.input.$el.value = parseFloat(newVal).toFixed(2);
-      })
+      });
     },
   },
 };

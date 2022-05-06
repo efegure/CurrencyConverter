@@ -6,16 +6,14 @@ const baseUrl = "https://openexchangerates.org/api/";
 // Currently using the other api because of this but the other API has limitaions as well.
 
 export default {
-     getCurrencyRate: async (currency)=>{
-        const params = new URLSearchParams({
-            "app_id": appId,
-            base:currency
-        });
-        const response = await fetch(baseUrl+ "latest.json?" 
-            + params.toString())
-            
-        const data = await response.json();
-        return data;
-    },
+  getCurrencyRate: async (currency) => {
+    const params = new URLSearchParams({
+      app_id: appId,
+      base: currency,
+    });
+    const response = await fetch(baseUrl + "latest.json?" + params.toString());
 
-}
+    const data = await response.json();
+    return data;
+  },
+};

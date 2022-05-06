@@ -1,5 +1,5 @@
 <script setup>
-import CurrencyConverter from '@/components/CurrencyConverter.vue'
+import CurrencyConverter from "@/components/CurrencyConverter.vue";
 </script>
 
 <template>
