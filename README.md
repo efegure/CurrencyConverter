@@ -1,6 +1,6 @@
 # currency-converter
 
-This template should help get you started developing with Vue 3 in Vite.
+Basic currency converter application using Vite, Vue 3 and Pinia.
 
 ## Recommended IDE Setup
 
